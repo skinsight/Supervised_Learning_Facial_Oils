@@ -69,12 +69,12 @@ def evaluate(results, accuracy, f1):
     # Super loop to plot four panels of data
     for k, learner in enumerate(results.keys()):
         for j, metric in enumerate(['train_time', 'acc_train', 'f_train', 'pred_time', 'acc_test', 'f_test']):
-            for i in np.arange(3):
+            for i in np.arange(1):
                 
                 # Creative plot code
-                ax[j//3, j%3].bar(i+k*bar_width, results[learner][i][metric], width = bar_width, color = colors[k])
-                ax[j//3, j%3].set_xticks([0.45, 1.45, 2.45])
-                ax[j//3, j%3].set_xticklabels(["1%", "10%", "100%"])
+                ax[j//3, j%3].bar(i+1.15+k*bar_width, results[learner][i][metric], width = bar_width, color = colors[k])
+                ax[j//3, j%3].set_xticks([1.45])
+                ax[j//3, j%3].set_xticklabels(["100%"])
                 ax[j//3, j%3].set_xlabel("Training Set Size")
                 #ax[j//3, j%3].set_xlim((-0.1, 3.0))
                 ax[j//3, j%3].set_xlim((-0.1, 3.0))
@@ -303,7 +303,7 @@ def evaluate_models(X_train, y_train, X_test, y_test):
     for clf in [clf_A, clf_B, clf_C]:
         clf_name = clf.__class__.__name__
         results[clf_name] = {}
-        for i, samples in enumerate([samples, samples, samples]):
+        for i, samples in enumerate([samples]):
             results[clf_name][i] = \
             train_predict(clf, samples, X_train, y_train, X_test, y_test)             
             print("ModelName: {}, F-score: {}, Accuracy: {}, train_time: {}, pred_time: {}, samples: {}".format(clf_name, results[clf_name][i]['f_test'], results[clf_name][i]['acc_test'], results[clf_name][i]['train_time'], results[clf_name][i]['pred_time'], samples))
